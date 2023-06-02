@@ -1,0 +1,63 @@
+<?php
+Para crear website completa en symfony 5
+composer create-project symfony/website-skeleton sisgespro
+
+Instalar paquete para trabajar con servidor apache
+composer require symfony/apache-pack
+
+1:Crear Base de datos y tablas con codigo SQL
+
+2:Crear las entidades(tablas de la base de Datos)
+
+php bin/console doctrine:mapping:import App\\Entity annotation --path=src/Entity
+
+3:Crear los metodos get y set
+
+php bin/console make:entity --regenerate App
+
+4:Cambiar el nombre de la entidad en singular
+
+5:Relacionar la entidad de uno a muchos 
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
+private $tasks;
+	
+	public function __construct(){
+		$this->tasks = new ArrayCollection();
+	}
+
+6:Crear los controladores
+
+php bin/console make:controller TaskController
+php bin/console make:controller UserController
+php bin/console make:controller ClientController
+php bin/console make:controller ProjectController
+
+7: Para encriptar la contraseña ir a configurar al archivo security.yml y luego ir al controlador del usuario
+
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+            cost: 4
+
+8:Para el login ir a configurar al archivo security.yml y luego ir al controlador del usuario
+
+providers:
+        in_memory: { memory: ~ }
+        proveedor:
+            entity:
+                class: App\Entity\User
+                property: email
+
+form_login:
+                login_path: login
+                check_path: login
+                provider: proveedor
+                
+            logout:
+                path: /logout
+                target: /
+?>
