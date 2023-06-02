@@ -1,0 +1,56 @@
+{% if users|length >= 1 %}
+<table>
+
+    <tr>
+        <th>Recurso</th>
+        <th>Email</th>
+        <th>Fecha Ingreso</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for user in users %}
+      <tr>
+
+        <td> 
+             {% if user.image|length >=1 %}
+             
+                 <div class="container-avatar">
+                      <img src="{{ asset('uploads/images/'~user.image) }}" class="avatar" alt="Symfony" />
+                 </div>
+
+                 {{ user.name }} {{ user.surname }}
+
+             {% else %}
+             
+                  <div class="container-avatar">
+                      <img src="{{ asset('uploads/images/user.jpg') }}" class="avatar" alt="Symfony" />
+                  </div>
+
+                  {{ user.name }} {{ user.surname }}
+
+             {% endif %}
+              
+        </td>
+
+        <td> {{ user.email }} </td>
+        <td> {{ user.createdAt|date('d/m/Y h:i:s') }} </td>
+
+        <td class="buttons">
+
+                <a href="{{ path('user_detail',{'id':user.id}) }}" class="btn-show">Ver</a>
+                
+                {% if app.user != null and user.id == app.user.id %}
+
+                    <a href="{{ path('user_edit',{'id':app.user.id}) }}" class="btn-edit">Editar</a>
+                    
+                {% endif %}
+
+        </td>
+
+      </tr>
+    {% endfor %}
+
+</table>
+{% else %}
+    <strong>No hay usuarios disponibles en este momento</strong>
+{% endif %}

@@ -1,0 +1,54 @@
+{% if clients|length >= 1 %}
+<table>
+    <tr>
+        <th>Nombre Compañia</th>
+        <th>Identificacion</th>
+        <th>Telefono</th>
+        <th>Contacto</th>
+        <th>Fecha Ingreso</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for client in clients %}
+      <tr>
+
+       <td> 
+             {% if client.image|length >=1 %}
+             
+             <div class="container-avatar">
+             <img src="{{ asset('uploads/images/'~client.image) }}" alt="Symfony" class="avatar" />
+             </div>
+             {{ client.companyName }}
+
+             {% else %}
+             
+             <div class="container-avatar">
+             <img src="{{ asset('uploads/images/user.jpg') }}" alt="Symfony" class="avatar" />
+             </div>
+             {{ client.companyName }}
+
+             {% endif %}
+              
+        </td>
+
+        <td> {{ client.ntdide }} </td>
+        <td> {{ client.phone }} </td>
+        <td> {{ client.contact }} </td>
+        <td> {{ client.createdAt|date('d/m/Y h:i') }} </td>
+
+        <td class="buttons">
+
+                <a href="{{ path('client_detail',{'id':client.id}) }}" class="btn-show">Ver</a>
+                
+                {% if app.user != null %}
+                    <a href="{{ path('client_edit',{'id':client.id}) }}" class="btn-edit">Editar</a>
+                {% endif %}
+        </td>
+
+      </tr>
+    {% endfor %}
+
+</table>
+{% else %}
+    <strong>No hay tareas disponibles en este momento</strong>
+{% endif %}

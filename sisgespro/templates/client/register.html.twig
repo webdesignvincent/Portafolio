@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if edit is defined %}
+        Editar Cliente
+    {%else%}
+        Registro de Cliente
+    {%endif%}
+
+{% endblock %}
+
+{% block body %}
+
+{{parent()}}
+
+<div class="example-wrapper">
+    
+    <h2 class='title'>
+            {% if edit is defined %}
+                Editar Cliente
+            {%else%}
+                Registro de Cliente
+            {%endif%}
+     </h2>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+</div>
+
+{% endblock %}

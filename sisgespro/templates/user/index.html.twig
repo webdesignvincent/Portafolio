@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Todos los Usuarios{% endblock %}
+
+{% block body %}
+   
+  {{parent()}}
+  
+  <div class="container">
+
+      <h2 class='title'>Todos Los Usuarios ✅</h2>
+
+           {{ include('includes/user-list.html.twig') }}
+
+  </div>
+
+{% endblock %}

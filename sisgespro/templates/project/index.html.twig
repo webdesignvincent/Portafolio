@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Todos los Proyectos{% endblock %}
+
+{% block body %}
+   
+  {{parent()}}
+
+  <div class="container">
+    <h2 class='title'>Todos los Proyectos ✅</h2>
+       {{ include('includes/project-list.html.twig') }}
+  </div>
+
+{% endblock %}

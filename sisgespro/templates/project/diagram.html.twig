@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Diagrama del Proyecto{% endblock %}
+
+{% block body %}
+   
+  {{parent()}}
+
+  <div class="container">
+
+    <h2 class='title'>Diagrama del Proyecto | {{ project.projectName }} ✅</h2>
+
+     {% if projects|length >= 1 %}
+
+     <div class='diagram'>
+     
+     <div class='section'>
+     
+        <table class='linea'>
+               <tr>
+                     <th><h2 class='title'>Por Iniciar  ✅</h2></th> 
+               </tr>
+
+               {% for project in projects %}
+                <tr>
+                     <td class='edit'>
+                         {% if project['phase_task'] == 'to start' %}
+                              {{ 'Por Iniciar' }} {{ '</br>' }} {{ 'Tarea: ' ~ project['title'] }}
+                         {% endif %}
+                     </td>
+
+               </tr>
+
+               {% endfor %}
+
+        </table>
+
+     </div>
+
+     <p class ="link-right"></ p>
+
+     <div class='section'>
+        <table>
+               <tr>
+                     <th><h2 class='title'>En Progreso  ✅</h2></th> 
+               </tr>
+
+               {% for project in projects %}
+                <tr>
+                     <td class='edit'>
+                         {% if project['phase_task'] == 'in progress' %}
+                              {{ 'En Proceso' }} {{ '</br>' }} {{ 'Tarea: ' ~ project['title'] }}
+                         {% endif %}
+                         {% if project['phase_task'] == 'stagnant' %}
+                              {{ 'Estancado' }} {{ '</br>' }} {{ 'Tarea: ' ~ project['title'] }}
+                         {% endif %}
+                     </td>
+               </tr>
+               {% endfor %}
+        </table>
+     </div>
+
+      <p class ="link-right"></ p>
+
+      <div class='section'>
+        <table>
+               <tr>
+                     <th><h2 class='title'>Terminado  ✅</h2></th> 
+               </tr>
+
+               {% for project in projects %}
+                <tr>
+                     <td class='edit'>
+                         {% if project['phase_task'] == 'finished' %}
+                              {{ 'Terminado' }} {{ '</br>' }} {{ 'Tarea: ' ~ project['title'] }}
+                         {% endif %}
+                     </td>
+               </tr>
+               {% endfor %}
+        </table>
+      </div>
+
+      </div>
+
+     {% else %}
+            <strong>No tiene Tareas asignadas el Proyecto en este momento</strong>
+     {% endif %}
+
+    <br>
+
+  <table>
+    <tr>
+        <td>
+            <a href="{{ path('projects') }}" class="btn big verde border-radius"><i class="fas fa-arrow-circle-left fa-2x"></i> Regresar</a>
+            <a onclick="printPage()" class="btn big verde border-radius"><i class="fa fa-print fa-2x"></i> Imprimir</a>
+        </td>
+    </tr>
+  </table>
+
+  </div>
+
+  <div class='clearfix'></div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function printPage() {
+            window.print();
+        }
+    </script>
+{% endblock %}

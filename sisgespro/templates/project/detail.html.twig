@@ -1,0 +1,194 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalle Del Proyecto{% endblock %}
+
+{% block body %}
+
+{{parent()}}
+
+<div class="example-wrapper">
+
+<table>
+    
+    <tr><th><h2> Proyecto </h2></th></tr>
+    <tr><td> {{ project.projectName }} ✅</td></tr>
+    <tr><th><h2> Progreso </h2></th></tr>
+    <tr>
+        <th> 
+
+               {% set t = 0 %}
+
+               {% set c = 0 %}
+
+               {% set p = 0 %} 
+
+                         {% for progress in projects_progress %}
+
+                              {% if progress['phase'] == 'finished' and progress['project_id'] == project.id  %}
+                                        {% set t = t + 1 %}
+                              {% endif %}
+
+                              {% if progress['project_id'] == project.id  %}
+                                        {% set c = c + 1 %}
+                              {% endif %}
+
+                              {% if progress['project_id'] == project.id  %}
+                                        {% set p = ((t / c) * 100)|round %}  
+                              {% endif %}
+
+                         {% endfor %}        
+             
+                             <input type="text" value="{{ p }}" class="dial">
+    
+        </th>
+    </tr>
+    <tr><th> Contenido </th></tr>
+    <tr><td> {{ project.content }} </td></tr>
+
+    <tr><th> Fase </th></tr>
+    <tr>
+        <td>
+            {% if project.phase == 'to start' %}
+               {{ 'Por Iniciar' }}
+            {% endif %}
+            {% if project.phase == 'in progress' %}
+               {{ 'En Proceso' }}
+            {% endif %}
+            {% if project.phase == 'stagnant' %}
+               {{ 'Estancado' }}
+            {% endif %}
+            {% if project.phase == 'finished' %}
+               {{ 'Terminado' }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr><th> Prioridad </th></tr>
+    <tr>
+        <td>
+          {% if project.priority == 'high' %}
+              {{ 'Alta' }}
+          {% endif %}
+          {% if project.priority == 'medium' %}
+              {{ 'Media' }}
+          {% endif %}
+          {% if project.priority == 'low' %}
+              {{ 'Baja' }}
+          {% endif %}
+        </td>
+    </tr>
+
+    <tr><th> Fecha Inicio </th></tr>
+    <tr><td> {{ project.startDate|date('d/m/Y h:i') }} </td></tr>
+    <tr><th> Fecha Fin </th></tr>
+    <tr><td> {{ project.endDate|date('d/m/Y h:i') }} </td></tr>
+    <tr><th> Pesupuesto </th></tr>
+    <tr><td> {{ project.projectBudget }} </td></tr>
+
+    <tr><th><h2> Tareas </h2></th></tr>
+    
+        {% if projects|length >= 1 %}
+        <table>
+               <tr>
+                     <th>Proyecto</th>
+                     <th>Prioridad Proyecto</th>
+                     <th>Fase Proyecto</th>
+                     <th>Tarea</th>
+                     <th>Prioridad Tarea</th>
+                     <th>Fase tarea</th>     
+               </tr>
+
+               {% for project in projects %}
+                <tr>
+                     <td>{{ project['project_name'] }}</td>
+                     
+                     <td>
+                         {% if project['priority_project'] == 'high' %}
+                              {{ 'Alta' }}
+                         {% endif %}
+                         {% if project['priority_project'] == 'medium' %}
+                              {{ 'Media' }}
+                         {% endif %}
+                         {% if project['priority_project'] == 'low' %}
+                              {{ 'Baja' }}
+                         {% endif %}
+                     </td>
+
+                     <td>
+                         {% if project['phase_proyecto'] == 'to start' %}
+                              {{ 'Por Iniciar' }}
+                         {% endif %}
+                         {% if project['phase_proyecto'] == 'in progress' %}
+                              {{ 'En Proceso' }}
+                         {% endif %}
+                         {% if project['phase_proyecto'] == 'stagnant' %}
+                              {{ 'Estancado' }}
+                         {% endif %}
+                         {% if project['phase_proyecto'] == 'finished' %}
+                               {{ 'Terminado' }}
+                         {% endif %}
+                     </td>
+
+                     <td>{{ project['title'] }}</td>
+
+                     <td>
+                         {% if project['priority_task'] == 'high' %}
+                              {{ 'Alta' }}
+                         {% endif %}
+                         {% if project['priority_task'] == 'medium' %}
+                              {{ 'Media' }}
+                         {% endif %}
+                         {% if project['priority_task'] == 'low' %}
+                              {{ 'Baja' }}
+                         {% endif %}
+                     </td>
+
+                     <td>
+                         {% if project['phase_task'] == 'to start' %}
+                              {{ 'Por Iniciar' }}
+                         {% endif %}
+                         {% if project['phase_task'] == 'in progress' %}
+                              {{ 'En Proceso' }}
+                         {% endif %}
+                         {% if project['phase_task'] == 'stagnant' %}
+                              {{ 'Estancado' }}
+                         {% endif %}
+                         {% if project['phase_task'] == 'finished' %}
+                               {{ 'Terminado' }}
+                         {% endif %}
+                     </td>
+               </tr>
+               {% endfor %}
+
+        {% else %}
+            <tr><td> <strong>No hay Proyectos en este momento</strong> </td></tr>
+        {% endif %}
+
+        </table>
+
+   <tr>
+
+</table>
+
+  <table>
+
+    <tr>
+        <td>
+            <a href="{{ path('projects') }}" class="btn big verde border-radius"><i class="fas fa-arrow-circle-left fa-2x"></i> Regresar</a>
+            <a onclick="printPage()" class="btn big verde border-radius"><i class="fa fa-print fa-2x"></i> Imprimir</a>
+        </td>
+    </tr>
+  </table>
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function printPage() {
+            window.print();
+        }
+    </script>
+{% endblock %}

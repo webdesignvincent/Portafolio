@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalle Cliente{% endblock %}
+
+{% block body %}
+
+{{parent()}}
+
+<div class="example-wrapper">
+
+<table>
+    
+    <tr><th> <h2> {{ client.companyName }} ✅</h2> </th></tr>
+
+    <tr>
+        <td>
+            {% if client.image|length >=1 %}
+             
+                <div class="container-avatar">
+                   <img src="{{ asset('uploads/images/'~client.image) }}" class="detail" />
+                </div>
+
+             {% else %}
+             
+                <div class="container-avatar">
+                <img src="{{ asset('uploads/images/user.jpg') }}" class="detail" />
+                </div>
+
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr><th> Numero Identificacion </th></tr>
+    <tr><td> {{ client.ntdide }} </td></tr>
+
+    <tr><th> Telefono </th></tr>
+    <tr><td> {{ client.phone }} </td></tr>
+
+    <tr><th> Contacto </th></tr>
+    <tr><td> {{ client.contact }} </td></tr>
+
+    <tr><th> Fecha Ingreso </th></tr>
+    <tr><td> {{ client.createdAt|date('d/m/Y h:i') }} </td></tr>
+
+    <tr><th> Proyectos   |   Tareas </th></tr>
+        
+        {% if projects|length >= 1 %}
+        <table>
+               <tr>
+                     <th>Proyecto</th>
+                     <th>Prioridad Proyecto</th>
+                     <th>Fase Proyecto</th>
+                     <th>Tarea</th>
+                     <th>Prioridad Tarea</th>
+                     <th>Fase tarea</th>     
+               </tr>
+
+               {% for project in projects %}
+                <tr>
+                     <td>{{ project['project_name'] }}</td>
+                     
+                     <td>
+                         {% if project['priority_project'] == 'high' %}
+                              {{ 'Alta' }}
+                         {% endif %}
+                         {% if project['priority_project'] == 'medium' %}
+                              {{ 'Media' }}
+                         {% endif %}
+                         {% if project['priority_project'] == 'low' %}
+                              {{ 'Baja' }}
+                         {% endif %}
+                     </td>
+
+                     <td>
+                         {% if project['phase_proyecto'] == 'to start' %}
+                              {{ 'Por Iniciar' }}
+                         {% endif %}
+                         {% if project['phase_proyecto'] == 'in progress' %}
+                              {{ 'En Proceso' }}
+                         {% endif %}
+                         {% if project['phase_proyecto'] == 'stagnant' %}
+                              {{ 'Estancado' }}
+                         {% endif %}
+                         {% if project['phase_proyecto'] == 'finished' %}
+                               {{ 'Terminado' }}
+                         {% endif %}
+                     </td>
+
+                     <td>{{ project['title'] }}</td>
+
+                     <td>
+                         {% if project['priority_task'] == 'high' %}
+                              {{ 'Alta' }}
+                         {% endif %}
+                         {% if project['priority_task'] == 'medium' %}
+                              {{ 'Media' }}
+                         {% endif %}
+                         {% if project['priority_task'] == 'low' %}
+                              {{ 'Baja' }}
+                         {% endif %}
+                     </td>
+
+                     <td>
+                         {% if project['phase_task'] == 'to start' %}
+                              {{ 'Por Iniciar' }}
+                         {% endif %}
+                         {% if project['phase_task'] == 'in progress' %}
+                              {{ 'En Proceso' }}
+                         {% endif %}
+                         {% if project['phase_task'] == 'stagnant' %}
+                              {{ 'Estancado' }}
+                         {% endif %}
+                         {% if project['phase_task'] == 'finished' %}
+                               {{ 'Terminado' }}
+                         {% endif %}
+                     </td>
+
+               </tr>
+               {% endfor %}
+
+        {% else %}
+            <tr><td> <strong>No hay Proyectos en este momento</strong> </td></tr>
+        {% endif %}
+
+        </table>
+
+   <tr>
+
+</table>
+
+<table>
+   <tr><td><a href="{{ path('clients') }}" class="btn big verde border-radius">Regresar</a></td></tr>
+</table>
+
+</div>
+
+<div class='clearfix'></div>
+</br>
+
+{% endblock %}

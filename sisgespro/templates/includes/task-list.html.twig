@@ -1,0 +1,101 @@
+{% if tasks|length >= 1 %}
+<table>
+    <tr>
+        <th>Proyecto</th>
+        <th>Tarea</th>
+        <th>Prioridad</th>
+        <th>Fase</th>
+        <th>Horas presupuestadas</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% set a = 0 %}
+
+    {% set m = 0 %}
+
+    {% set b = 0 %}
+
+    {% for task in tasks %}
+        <tr>
+
+            <td> {{ task.project.projectName }} </td>
+            <td> {{ task.title }}</td>
+            <td>
+                {% if task.priority == 'high' %}
+                    {{ 'Alta' }}
+                    {% set a = a+1 %}
+                {% endif %}
+                {% if task.priority == 'medium' %}
+                    {{ 'Media' }}
+                    {% set m = m+1 %}
+                {% endif %}
+                {% if task.priority == 'low' %}
+                    {{ 'Baja' }}
+                    {% set b = b+1 %}
+                {% endif %}
+            </td>
+
+            <td>
+            {% if task.phase == 'to start' %}
+               {{ 'Por Iniciar' }}
+            {% endif %}
+            {% if task.phase == 'in progress' %}
+               {{ 'En Proceso' }}
+            {% endif %}
+            {% if task.phase == 'stagnant' %}
+               {{ 'Estancado' }}
+            {% endif %}
+            {% if task.phase == 'finished' %}
+               {{ 'Terminado' }}
+            {% endif %}
+            </td>
+
+            <td>{{ task.hours }}</td>
+
+            <td class="buttons">
+                
+                 <a href="{{ path('task_detail', {'id':task.id}) }}" class="btn-show">Ver</a>
+              
+                {% if app.user != null and task.user.id == app.user.id %}
+
+                    <a href="{{ path('task_edit', {'id':task.id}) }}" class="btn-edit">Editar</a>
+
+                    <a href="{{ path('task_delete', {'id':task.id}) }}" class="btn-delete">Borrar</a>
+
+                {% endif %}
+
+            </td>
+        </tr>
+    {% endfor %}
+   
+    <!-- Estadisticas -->
+
+    <div class='boxs'>
+
+       <div class='box' style='background: #FFA500; border: 3px solid #FF8C00'>
+           <a class='letter' href="{{ path('tasks') }}"><i class="fas fa-tasks fa-2x"></i> Tasks </a>
+       </div>
+
+       <div class='box' style='background: #FF4500; border: 3px solid #FF0000'>
+           <a class='letter' href="{{ path('priority_tasks',{'priority':'high'}) }}"><i class="fas fa-arrow-up fa-2x"></i>  Alta  {{ a }} </a>
+       </div>
+
+       <div class='box' style='background: #FFD700; border: 3px solid #FF8C00'>
+           <a class='letter' href="{{ path('priority_tasks',{'priority':'medium'}) }}"><i class="fas fa-exchange-alt fa-2x"></i> Media  {{ m }} </a>
+       </div>
+
+       <div class='box' style='background: #00FF00; border: 3px solid #32CD32'>
+           <a class='letter' href="{{ path('priority_tasks',{'priority':'low'})}}"><i class="fas fa-arrow-down fa-2x"></i> Baja  {{ b }}  </a>
+       </div>
+
+    </div>
+   
+    <!-- End Estadisticas -->
+
+</table>
+
+ <div class='clearfix'></div>
+
+{% else %}
+    <strong>No hay tareas disponibles en este momento</strong>
+{% endif %}

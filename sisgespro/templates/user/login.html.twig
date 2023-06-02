@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login de usuarios{% endblock %}
+
+{% block body %}
+
+{{parent()}}
+
+ {% if app.user %}
+
+    <div class='boxs'>
+
+      <div class='box' style='background: #FF8C00; border: 3px solid #FF9900'>
+           <a class='letter' href="{{ path('my_projects') }}"><i class="fas fa-book fa-2x"></i></br>Mis Projectos</br></a>
+      </div>
+
+      <div class='box' style='background: #FF4500; border: 3px solid #FF0000'>
+           <a class='letter' href="{{ path('project_creation') }}"><i class="fas fa-cart-plus fa-2x"></i></br> +Crear Projecto</a>
+      </div>
+
+      <div class='box' style='background: #25DC00; border: 3px solid #32CD32'>
+           <a class='letter' href="{{ path('projects') }}"><i class="fas fas fa-atlas fa-2x"></i></br> Projectos </br> {{ projects|length }} </a>
+      </div>
+
+      <div class='box' style='background: #3b5998; border: 3px solid #000080'>
+           <a class='letter' href="{{ path('diagrams') }}"><i class="fas fa-project-diagram fa-2x"></i>Diagramas</br> {{ projects|length }} </a>
+      </div>
+
+      <div class='box' style='background: #F3B204; border: 3px solid #FF8C00'>
+           <a class='letter' href="{{ path('tasks') }}"><i class="fas fa-tasks fa-2x"></i></br>Tareas</br> {{ tasks|length }} </a>
+      </div>
+
+      <div class='box' style='background: #6A5ACD; border: 3px solid #6666CC'>
+           <a class='letter' href="{{ path('register_client') }}"><i class="fas fa-user-tie fa-2x"></i></br> +Crear Cliente</a>
+      </div>
+
+      <div class='box' style='background: #9370DB; border: 3px solid #9966CC'>
+           <a class='letter' href="{{ path('clients') }}"><i class="fas fa-user-tie fa-2x"></i></br> Clientes </br> {{ clients|length }} </a>
+      </div>
+
+      <div class='box' style='background: #01B1EA; border: 3px solid #1573FA'>
+           <a class='letter' href="{{ path('users') }}"><i class="fas fa-users fa-2x"></i> Usuarios </br> {{ users|length }} </a>
+      </div>
+
+    </div>
+
+    <div class="example-wrapper">
+          <h2 class='title'>Barras de Progreso ✅</h2>
+    </div>
+
+     <section class="paginacion">
+
+     <div class='boxs'>   
+
+          {% for proj in projects %}
+
+               {% set t = 0 %}
+
+               {% set c = 0 %}
+
+               {% set p = 0 %} 
+
+                         {% for progress in projects_progress %}
+
+                              {% if progress['phase'] == 'finished' and progress['project_id'] == proj.id  %}
+                                        {% set t = t + 1 %}
+                              {% endif %}
+
+                              {% if progress['project_id'] == proj.id  %}
+                                        {% set c = c + 1 %}
+                              {% endif %}
+
+                              {% if progress['project_id'] == proj.id  %}
+                                        {% set p = ((t / c) * 100)|round %}  
+                              {% endif %}
+
+                         {% endfor %}
+                       
+               <div class='progress'>
+                    <input type="text" value="{{ p }}" class="dial"> <h3>{{ proj.projectName }}</h3>
+               </div>
+
+          {% endfor %}
+
+     </div>
+
+     <ul>
+          <?php 
+               # Establecemos el numero de paginas
+               $numero_paginas = numero_paginas($blog_config['post_por_pagina'], $conexion);
+          ?>
+          <!-- Mostramos el boton para retroceder una pagina -->
+          <?php if (pagina_actual() === 1): ?>
+               <li class="disabled">&laquo;</li>
+          <?php else: ?>
+               <li><a href="index.php?p=<?php echo pagina_actual() - 1; ?>">&laquo;</a></li>
+          <?php endif; ?>
+
+          <!-- Creamos un elemento li por cada pagina que tengamos -->
+          <?php for ($i = 1; $i <= $numero_paginas; $i++): ?>
+               <!-- Agregamos la clase active en la pagina actual -->
+               <?php if (pagina_actual() === $i): ?>
+                    <li class="active">
+                         <?php echo $i; ?>
+                    </li>
+               <?php else: ?>
+                    <li>
+                         <a href="index.php?p=<?php echo $i;?>"><?php echo $i; ?></a>
+                    </li>
+               <?php endif; ?>
+          <?php endfor; ?>
+
+          <!-- Mostramos el boton para avanzar una pagina -->
+          <?php if (pagina_actual() == $numero_paginas): ?>
+               <li class="disabled">&raquo;</li>
+          <?php else: ?>
+               <li><a href="index.php?p=<?php echo pagina_actual() + 1; ?>">&raquo;</a></li>
+          <?php endif; ?>
+     </ul>
+
+     </section>
+
+    <div class='clearfix'></div>
+ 
+ {% else %}
+
+<div class="example-wrapper">
+
+    <h2 class='title'>Login de usuarios</h2>
+    
+    {% if error %}
+
+        <div class="alert alert-error">
+            {{ error.messagekey|trans(error.messageData,'security') }}
+        </div>
+        
+    {% endif %}
+    
+    <form action="{{ path('login') }}" method="POST">
+
+        <label for="username">Email</label>
+        <input type="email" id="username" name="_username" value="{{ last_username }}" />
+        
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="_password" />
+        
+        <input type="submit" value="Entrar"/>
+        
+    </form>
+
+</div>
+
+ {% endif %}
+
+{% endblock %}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Meta -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+        <!-- End Meta -->
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="{{ asset('assets/css/style.css') }}" type="text/css" rel="stylesheet" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+        {% endblock %}
+    </head>
+    <body>
+
+        {% block header %}
+         <div class="container">
+            <div class="header">
+                <h1><i class="fab fa-ubuntu fa-2x"></i>  Sistema Gestion de Proyectos con Symfony 5</h1>
+            </div>
+        </div> 
+        {% endblock %}
+
+        {% block body %}
+         <div class="container">
+                <ul class="main">
+                    {% if app.user %}
+                        <li><a href="{{ path('login') }}"><i class="fas fa-home fa-1x"></i> Inicio</a></li>
+                        <li><a href="{{ path('projects') }}"><i class="fas fa-project-diagram fa-1x"></i>   Projectos</a></li>
+                        <li><a href="{{ path('tasks') }}"><i class="fas fa-tasks"></i> Tareas</a></li>
+                        <li><a href=" {{ path('my_tasks') }} "><i class="fas fa-edit"></i> Mis Tareas</a></li>
+                        <li><a href="{{ path('task_creation')}}"><i class="fas fa-pencil-alt"></i> Crear Tarea</a></li> 
+                        <li class="right"><a href="{{path('logout')}}"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        <li class="right"><a href=""><i class="fas fa-user-tie"></i>{{ app.user.name ~ ' ' ~ app.user.surname }}</a></li>
+                    {% else %}
+                        <li><a href="{{path('login')}}"><i class="fas fa-lock"></i> Login</a></li>
+                        <li><a href="{{path('register')}}"><i class="fas fa-user-plus"></i> Registro</a></li>
+                    {% endif %}
+                </ul>
+         </div>
+
+        {% endblock %}
+
+        {% block javascripts %} 
+           <!-- jQuery -->
+           <script type="text/javascript" src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+           <script type="text/javascript" src="{{ asset('assets/js/jquery.knob.js') }}"></script>
+           <!-- Mi Script -->
+           <script src="{{ asset('assets/js/helpers.js') }}"></script>
+        {% endblock %}
+
+        {% block footer %}
+
+         <footer>
+              <div class="copyright">
+                 <p>Desarrollado por WEB DESIGN VINCENT &copy; 2021 </p>
+              </div>
+         </footer>
+
+         {% endblock %}
+
+    </body>
+</html>
