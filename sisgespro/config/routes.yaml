@@ -1,0 +1,97 @@
+users:
+    path: /usuarios
+    controller: App\Controller\UserController::index
+
+register:
+    path: /registro
+    controller: App\Controller\UserController::register
+
+user_detail:
+    path: /usuario/{id}
+    controller: App\Controller\UserController::detail
+
+user_edit:
+    path: /editar-usuario/{id}
+    controller: App\Controller\UserController::edit
+
+login:
+    path: /
+    controller: App\Controller\UserController::login
+
+logout:
+    path: /logout
+
+clients:
+    path: /clientes
+    controller: App\Controller\ClientController::index
+
+register_client:
+    path: /registro-clientes
+    controller: App\Controller\ClientController::register
+
+client_detail:
+    path: /cliente/{id}
+    controller: App\Controller\ClientController::detail
+
+client_edit:
+    path: /editar-cliente/{id}
+    controller: App\Controller\ClientController::edit
+
+projects:
+    path: /proyectos
+    controller: App\Controller\ProjectController::projects
+
+diagrams:
+    path: /diagramas
+    controller: App\Controller\ProjectController::diagrams
+
+project_detail:
+    path: /proyecto/{id}/{diagram_project}
+    controller: App\Controller\ProjectController::detail
+    defaults: { diagram_project: 'null'}
+
+project_creation:
+    path: /crear-proyecto
+    controller: App\Controller\ProjectController::creation
+
+project_edit:
+    path: /editar-proyecto/{id}
+    controller: App\Controller\ProjectController::edit
+
+my_projects:
+    path: /mis-proyectos
+    controller: App\Controller\ProjectController::myProjects
+
+tasks:
+    path: /tareas
+    controller: App\Controller\TaskController::index
+
+task_creation:
+    path: /crear-tarea
+    controller: App\Controller\TaskController::creation
+
+task_edit:
+    path: /editar-tarea/{id}
+    controller: App\Controller\TaskController::edit
+
+task_delete:
+    path: /borrar-tarea/{id}
+    controller: App\Controller\TaskController::delete
+
+my_tasks:
+    path: /mis-tareas
+    controller: App\Controller\TaskController::myTasks
+
+task_detail:
+    path: /tarea/{id}
+    controller: App\Controller\TaskController::detail
+
+priority_tasks:
+    path: /prioridad/{priority}
+    controller: App\Controller\TaskController::priority
+
+
+
+
+
+
