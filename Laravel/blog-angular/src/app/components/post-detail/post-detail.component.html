@@ -1,0 +1,29 @@
+<div class="col-md-12" *ngIf="!post">
+	Cargando...
+</div>
+
+<div class="col-md-12 mt-3" *ngIf="post">
+
+	<h1>{{ post.title }}</h1>
+
+	<div class="col-6">
+				<figure class="figure">
+					<div *ngIf="post.image">
+						<img src="{{ url + 'post/image/' + post.image }}" class="img-fluid rounded" />					
+					</div>
+
+					<div class="img-fluid rounded" *ngIf="!post.image">
+						<img src="assets/images/default.png" class="w-100" />			
+					</div>
+				</figure>
+	</div>
+
+	<p>
+		{{ post.category.name }} - <a [routerLink]="['/perfil', post.user_id]">{{ post.user.name + ' ' + post.user.surname }} </a>
+	</p>
+
+	<hr/>
+
+	<p [innerHtml]="post.content" class = "text-dark"></p>
+	
+</div>

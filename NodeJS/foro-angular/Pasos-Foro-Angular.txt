@@ -1,0 +1,92 @@
+VER VERSION DE NODEJS
+	node --version
+
+VER VERSION DE NPM
+	npm --version
+
+ACTUALIZAR ANGULAR CLI(Es una Interfaz de linea de comandos que ve permite trabajar con angular y asi montar toda su estructura)
+
+1: Actualizar npm
+
+	npm install -g npm@latest
+
+2: Actualizar la cache
+
+	npm cache clean --force
+
+3: DESACTIVAR - AUDITORIAS BULNERAVILITY
+
+	npm set audit false
+
+4: Desinstalar angular cli(paquete que me permite generar proyecto de angular)
+
+   npm uninstall -g angular-cli
+   npm uninstall -g @angular/cli
+
+5: Actualizar la cache
+
+  	npm cache clean --force
+
+6: Instalar Angular CLI
+
+   npm install -g @angular/cli@latest
+
+Craer proyecto en angular(IR A RUTA cd /c/xampp/htdocs/Full-Stack/Laravel)
+
+   ng new foro-angular
+   N
+   ENTER
+
+Instalar Dependencia de Angular
+
+  npm i @nowzoo/ngx-highlight-js @nowzoo/sheetload --save --force
+  npm install angular-file-uploader --save
+  npm install angular2-moment --save
+  npm install bootstrap --save
+  npm install @types/jquery --save
+
+
+Lanzar el servidor local y el proyecto(IR A RUTA cd /cygdrive/c/xampp/htdocs/Full-Stack/NodeJS/foro-angular)
+
+   ng serve
+
+Agregar Jquery y Bootstrap
+
+Voy al archivo package.json y agrego las siguientes lineas
+
+ "jquery" : "3.3.1",
+ "bootstrap" : "4.1.3"
+
+ npm update
+
+Luego agregar en angular.json las rutas
+
+Craer componente
+
+	ng g component components/login
+	ng g component components/register
+	ng g component components/home
+	ng g component components/user-edit
+	ng g component components/topics
+	ng g component components/topic-detail
+	ng g component components/users
+	ng g component components/profile
+	ng g component components/search
+
+	---------
+	--PANEL--
+	---------
+	ng g component panel/components/main
+	ng g component panel/components/add
+	ng g component panel/components/edit
+	ng g component panel/components/list
+
+
+
+
+	
+
+
+
+
+    

@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+.pointer{
+	cursor: pointer;
+}
+
+.avatar_mask{
+	width: 40px;
+	height: 40px;
+	border-radius: 900px;
+	overflow: hidden;
+}
+
+.avatar_mask img{
+	height: 40px;
+}
+
+footer{
+    width: 1100px;
+    background-color: #1B1E1F;
+    color: #D1D4D6;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 0px 0px 20px gray;
+    position:fixed;
+    bottom:0px;
+}
+
+.avatar_home img {
+  display: block;
+  margin: auto;
+}
+
+.avatar_mask_list{
+  width: 70px;
+  height: 70px;
+  border-radius: 900px;
+  overflow: hidden;
+}
+
+.avatar_mask_list img{
+  height: 70px;
+}
+
+div {
+  transition-delay: 9s;
+}

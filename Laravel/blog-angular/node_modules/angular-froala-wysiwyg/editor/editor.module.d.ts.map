@@ -1,0 +1,1 @@
+{"version":3,"file":"editor.module.d.ts","sources":["editor.module.d.ts"],"names":[],"mappings":"AAAA;;;AACA;AACA;;;;AACA","sourcesContent":["import { ModuleWithProviders } from '@angular/core';\nexport declare class FroalaEditorModule {\n    static forRoot(): ModuleWithProviders<FroalaEditorModule>;\n}\n"]}

@@ -1,0 +1,27 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %} {{ article.title }} {% endblock %}  
+
+{% block content %}
+
+    <h1 class="title">{{ article.title }}</h1>
+
+    {% if article.image != 'null' and article.image.url|length >= 1  %}
+                  <div class="imagen">
+                      <img src="{{ article.image.url }}" />
+                  </div>
+          {% else %}
+                  <span  class="date">Imagen no cargada</span>
+    {% endif %}
+
+    <span class="datetime" style="display: block; margin-top: 15px; margin-bottom: 15px; color: gray;">
+        {{ article.created_at }}
+    </span> 
+
+    <p class="content" style="line-height: 25px;">
+        {{ article.content|safe }}
+    </p>
+  
+
+{% endblock %}
+

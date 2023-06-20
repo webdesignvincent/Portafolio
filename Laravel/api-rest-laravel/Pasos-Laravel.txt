@@ -1,0 +1,150 @@
+composer -v
+----------------------
+--Crear Host Virtual--
+----------------------
+C:\xampp\apache\conf\extra
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/Full-Stack/Laravel/api-rest-laravel/public"
+    ServerName api-rest-laravel.com.devel
+</VirtualHost>
+
+C:\Windows\System32\drivers\etc
+127.0.0.1 api-rest-laravel.com
+
+http://api-rest-laravel.com/animales
+
+http://localhost/Full-Stack/Laravel/api-rest-laravel/public/
+
+-----------------------
+--Crear Base de Datos--
+-----------------------
+CREATE DATABASE IF NOT EXISTS api_rest_laravel;
+USE api_rest_laravel;
+
+CREATE TABLE IF NOT EXISTS users(
+id					INT(255) AUTO_INCREMENT NOT NULL,
+name           VARCHAR(50) NOT NULL,
+surname        VARCHAR(100),
+role           VARCHAR(20),
+email          VARCHAR(255) NOT NULL,
+password       VARCHAR(255) NOT NULL,
+description    TEXT,
+image          VARCHAR(255),
+created_at     DATETIME DEFAULT NULL,
+updated_at     DATETIME DEFAULT NULL,
+remember_token VARCHAR(255),
+CONSTRAINT pk_users PRIMARY KEY(id)
+)ENGINE=INNODB;
+
+
+CREATE TABLE IF NOT EXISTS categories(
+id					INT(255) AUTO_INCREMENT NOT NULL,
+name           VARCHAR(50) NOT NULL,
+created_at     DATETIME DEFAULT NULL,
+updated_at     DATETIME DEFAULT NULL,
+CONSTRAINT pk_categories PRIMARY KEY(id)
+)ENGINE=INNODB;
+
+
+CREATE TABLE IF NOT EXISTS posts(
+id					INT(255) AUTO_INCREMENT NOT NULL,
+user_id        INT(255) NOT NULL,
+category_id    INT(255) NOT NULL,
+title          VARCHAR(255) NOT NULL,
+content        TEXT,
+image          VARCHAR(255),
+created_at     DATETIME DEFAULT NULL,
+updated_at     DATETIME DEFAULT NULL,
+CONSTRAINT pk_posts PRIMARY KEY(id),
+CONSTRAINT fk_post_user FOREIGN KEY(user_id) REFERENCES users(id),
+CONSTRAINT fk_post_category FOREIGN KEY(category_id) REFERENCES categories(id)
+)ENGINE=INNODB;
+
+--------------------------
+--Crear Proyecto Laravel--
+--------------------------
+cd /c/xampp/htdocs/Full-Stack/Laravel
+
+composer create-project laravel/laravel api-rest-laravel "8.*" --prefer-dist 
+
+-------------------
+--Conexion con BD--
+-------------------
+ir archivo .env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=api_rest_laravel
+DB_USERNAME=root
+DB_PASSWORD=
+
+---------------------
+--Craer Controlador--
+---------------------
+cd /c/xampp/htdocs/Full-Stack/Laravel/api-rest-laravel
+
+php artisan make:controller PruebasController
+php artisan make:controller UserController
+php artisan make:controller CategoryController
+php artisan make:controller PostController
+
+----------------
+--crear modelo--
+----------------
+php artisan make:model Category
+php artisan make:model Post
+
+--------------------------------
+--Ver rutas creadas en Laravel--
+--------------------------------
+php artisan route:list
+
+------------------------------------
+--Para Probar las rutas en postman--
+------------------------------------
+Comentar la siguiente linea en el archivo Kernel.php
+
+ //\App\Http\Middleware\VerifyCsrfToken::class
+
+-------
+--JWT--
+-------
+Ir al archivo composer.json y agregar linea
+"firebase/php-jwt":"3.0.0"
+
+Luego ejecutar comando
+    composer update
+
+Dentro de app creo la carpeta helpers y dentro de ella el archivo JwtAuth.php
+
+------------------------------------------
+--Para utilizar el helpers creo servicio--
+------------------------------------------
+php artisan make:provider JwtAuthServiceProvider
+
+Modificar el archvio creado JwtAuthServiceProvider el metodo register
+
+  public function register()
+    {
+        require_once app_path().'/Helpers/JwtAuth.php';
+    }
+
+Agregar las lienas en el archivo app.php
+-------------
+--providers--
+-------------
+App\Providers\JwtAuthServiceProvider::class
+
+-----------
+--aliases--
+-----------
+'JwtAuth' => App\Helpers\JwtAuth::class
+
+--------------------
+--Crear Middleware--
+--------------------
+php artisan make:middleware ApiAuthMiddleware
+
+Luego lo agrego en el archivo Kernel.php
+'api.auth' => \App\Http\Middleware\ApiAuthMiddleware::class,
+

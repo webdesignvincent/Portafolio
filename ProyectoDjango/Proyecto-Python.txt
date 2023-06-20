@@ -1,0 +1,364 @@
+------------------
+--Instalar Django-
+------------------
+
+Ver version de python
+	
+	Python --version
+
+	Python -m tkinter --version
+
+Instalar Django
+
+	pip install Django==4.0.4
+
+	Python -m django --version
+
+----------------------------
+--CREAR PROYECTO EN DJANGO--
+----------------------------
+
+Crear Proyecto en Django(ir a cd C:\xampp\htdocs\Master-Python\22-django)
+ 
+	django-admin startproject ProyectoDjango
+
+Ir al archivo settings.py para ponerlo en español modificar la linea
+
+	LANGUAGE_CODE = 'es-es'
+
+Crear App(cd C:\xampp\htdocs\Master-Python\22-django\ProyectoDjango)		
+	
+	python manage.py startapp mainapp
+	python manage.py startapp pages
+	python manage.py startapp blog
+
+Agregar el app en settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'ckeditor', 
+	
+    'mainapp',
+    'pages.apps.PagesConfig',
+    'blog.apps.BlogConfig'
+]
+
+Instalar paquete de Python
+
+	pip install pylint-django
+
+Ejecutar proyecto(ir dentro de la carpeta del proyecto que se creo cd C:\xampp\htdocs\Master-Python\22-django\ProyectoDjango)
+
+    python manage.py migrate
+
+	python manage.py runserver
+
+---------------------
+--MODELOS EN DJANGO--
+---------------------
+
+-  Ir al archivo models.py y crear los modelos que van a ser las tablas de la base de datos
+
+-  crear las migraciones ir a la ruta del proyecto cd C:\xampp\htdocs\Master-Python\22-django\ProyectoDjango
+
+ python manage.py makemigrations 
+ python manage.py sqlmigrate pages 0001
+ python manage.py migrate
+
+ python manage.py makemigrations 
+ python manage.py sqlmigrate pages 0002
+ python manage.py migrate
+
+ python manage.py makemigrations 
+ python manage.py sqlmigrate blog 0001
+ python manage.py migrate
+
+---------------------
+--Craer Controlador--
+---------------------
+
+	ir al archivo views.py(crear los metodos)
+
+Crear carpeta templates y dentro de ella cada carpeta con el archivo html
+
+----------------------------------------------------------
+--Crear Ruta para visualizar la vista previamente creada--
+----------------------------------------------------------
+
+	ir al archivo urls.py(creo las rutas)
+
+Copiar la carpeta static del proyecto anterior
+
+---------------------------------
+--CREAR USUARIO ADMIN DE DJANGO--
+--------------------------------- 
+
+cd C:\xampp\htdocs\Master-Python\22-django\ProyectoDjango
+
+- Crear usuario en django admin
+
+	python manage.py createsuperuser
+
+		vicente
+		hoger@holger.com
+		holger.316
+
+- Ir al archivo admin.py para agregar el modelo y metodos para poder adminitrarlos
+
+	from .models import Page
+
+	# Register your models here.
+	admin.site.register(Page)
+
+- Para cambiar el nombre del modelo en español en el panel de administracion 
+
+	ir al archivo models.py y agregar la siguiente sentencia debajo de cada modelo 
+
+    class Meta:
+        verbose_name = "Pagina"
+        verbose_name_plural = "Paginas"
+
+- Para cambiar el nombre de pages en el panel de administracion
+
+	ir al archivo apps.py y agragar la siguiente linea: verbose_name = "Gestion de Paginas"
+	ir al archivo settings.py y modificar la siguiente linea: 'pages.apps.PagesConfig'
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'mainapp',
+    'pages.apps.PagesConfig'
+]
+
+- Cambiar el TITULO de la pagina DEL PANEL DE administracion
+
+	- Ir al archivo admin.py
+
+	# Configuracion del Panel
+	title = "Proyecto con Django"
+	subtitle = "Panel de Gestion"
+
+	admin.site.site_header = title
+	admin.site.site_title = title
+	admin.site.index_title = subtitle
+
+- Crear un context_processors nos permite tener toda la informacion en nuetras templates
+
+	Crear archivo context_processors.py dentro de la carpeta pages lo programo y luego lo agrego
+
+
+	TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'pages.context_processors.get_pages'
+            ],
+        },
+    },
+]
+
+
+- Usar un editor de texto enriquecido en Django
+
+	pip install django-ckeditor
+
+	ir a models.py y modificar
+
+		from ckeditor.fields import RichTextField
+
+		content = RichTextField(verbose_name="Contenido")
+
+	ir al archivo settings.py y modificar 
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'ckeditor',
+    'mainapp',
+    'pages.apps.PagesConfig'
+]
+
+- Cambiar a base de datos mysql
+
+ ir al archivo settings.py y comento lo siguiente 
+
+	DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+	escribirlo de la siguiente forma
+
+	DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'proyectodjango',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost'
+    }
+}
+
+ instalar driver: pip install mysqlclient
+ ejecutar comandos de migracion
+
+	python manage.py migrate
+ 	
+- Crear usuario en django admin
+
+	python manage.py createsuperuser
+
+		vicente
+		hoger@holger.com
+		holger.316
+		
+ -----------------------------------------
+--CONFIGURAR DJANGO PARA SUBIR IMAGENES--
+------------------- ---------------------
+
+- Creo una carpeta con el nombre media a nivel de la carpeta del nombre de mi app
+
+- Ir al archivo settings.py y modificarlo 
+		# Media files
+		MEDIA_URL = '/media/'
+		MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+- Ir al archivo models.py y modificarlo
+		image = models.ImageField(default='null',verbose_name = "Miniatura", upload_to="articles")
+
+- Instalar Pillow
+		pip install Pillow
+
+- Ir al archivo urls.py 
+
+	from django.conf import settings
+
+	# Configaracion para cargar imagenes
+	if settings.DEBUG:
+    	from django.conf.urls.static import static
+   		urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+
+
+
+
+
+
+-------------------
+--ADMIN DE DJANGO--
+------------------- 
+
+ cd /cygdrive/c/xampp/htdocs/Master-Python/22-django/AprendiendoDjango
+
+- Crear usuario en django admin
+
+	python manage.py createsuperuser
+
+		holger
+		hoger@holger.com
+		holger.316
+
+- Ir al archivo admin.py para agregar el modelo y metodos para poder adminitrarlos
+
+	from .models import Article, Category
+
+	# Register your models here.
+	admin.site.register(Article)
+	admin.site.register(Category)
+
+- Para cambiar el nombre del modelo en español en el panel de administracion 
+
+	ir al archivo models.py y agregar la siguiente sentencia debajo de cada modelo 
+
+	class Meta:
+        verbose_name = "Articulo"
+        verbose_name_plural = "Articulos"
+        ordering = ['created_at']
+	
+	class Meta:
+        verbose_name = "Categoria"
+        verbose_name_plural = "Categorias"
+        ordering = ['-id']
+
+- Para modificar en español los nombres de los campos agregar la siguiente sentencia verbose_name = "Titulo"
+  dentro del archivo models.py
+
+	class Article(models.Model):
+		title = models.CharField(max_length=150,verbose_name = "Titulo")
+		content = models.TextField(verbose_name = "Contenido")
+		image = models.ImageField(default='null',verbose_name = "Miniatura", upload_to="articles")
+		public = models.BooleanField(verbose_name = "¿Publicado?")
+		created_at = models.DateTimeField(auto_now_add=True, verbose_name = "Creado")
+		updated_at = models.DateTimeField(auto_now=True, verbose_name = "Editado")
+
+
+
+- Metodo magico para imprimir objetos en el panel de administracion 
+
+	ir al archivo models.py y agregar la siguiente funcion
+
+	def __str__(self):
+
+        if self.public:
+            public = "(Publicado)"
+        else:
+            public = "(Privado)"
+        
+        return f"{self.title} | {public}"
+
+- Para mostrar campos de solo lectura
+
+	ir al archivo admin.py y agregar la siguiente clase
+
+	class ArticleAdmin(admin.ModelAdmin):
+    	readonly_fields = ('created_at','updated_at')
+
+	admin.site.register(Article, ArticleAdmin)
+
+	ir al archivo models.py y agregar verbose_name a cada campó
+
+		created_at = models.DateTimeField(auto_now_add=True, verbose_name = "Creado")
+        updated_at = models.DateTimeField(auto_now=True, verbose_name = "Editado")
+
+- Cambiar el TITULO DEL PANEL DE administracion
+
+	- Ir al archivo admin.py 
+
+		# Configurar el titulo del panel 
+		admin.site.site_header = "Master en Python - Holger Vicente Montalvan Ronquillo"
+
+
+
+
+
+
+
+
+	
+        
+	

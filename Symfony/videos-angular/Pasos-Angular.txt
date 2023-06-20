@@ -1,0 +1,121 @@
+VER VERSION DE NODEJS
+	node --version
+
+VER VERSION DE NPM
+	npm --version
+
+ACTUALIZAR ANGULAR CLI(Es una Interfaz de linea de comandos que ve permite trabajar con angular y asi montar toda su estructura)
+
+1: Actualizar npm
+
+	npm install -g npm@latest
+
+2: Actualizar la cache
+
+	npm cache clean --force
+
+3: DESACTIVAR - AUDITORIAS BULNERAVILITY
+
+	npm set audit false
+
+4: Desinstalar angular cli(paquete que me permite generar proyecto de angular)
+
+   npm uninstall -g angular-cli
+   npm uninstall -g @angular/cli
+
+5: Actualizar la cache
+
+  	npm cache clean --force
+
+6: Instalar Angular CLI
+
+   npm install -g @angular/cli@latest
+
+Craer proyecto en angular(IR A RUTA cd /c/xampp/htdocs/Full-Stack/Symfony)
+
+   ng new videos-angular
+   N
+   ENTER
+
+Agregar jquery  y bootstrap al proyecto(ir al archivo package.json)
+
+    "jquery":"3.3.1",
+    "bootstrap":"4.1.3"
+
+	npm update
+
+luego modifico el archivo angular.json
+
+	     "styles": [
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/css/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+
+            ]
+
+Crear dentro de app carpeta models para agregar modelos de la base de datos
+
+cd /c/xampp/htdocs/Full-Stack/Symfony/videos-angular
+
+Craer componente
+
+	ng g component components/home
+	ng g component components/error
+	ng g component components/register
+	ng g component components/login
+	ng g component components/user-edit
+	ng g component components/video-new
+	ng g component components/video-edit
+	ng g component components/video-detail
+
+	
+	
+	ng g component components/user-edit
+	ng g component components/category-new
+	ng g component components/post-new
+	ng g component components/post-detail
+	ng g component components/post-edit
+	ng g component components/category-detail
+	ng g component components/profile
+	ng g component components/post-list
+
+
+
+Lanzar el servidor local y el proyecto(IR A RUTA 
+)
+
+   ng serve
+
+Luego agregar en angular.json las rutas
+
+
+
+
+
+
+
+
+
+
+Instalar Dependencia de Angular
+
+   npm install rxjs-compat --save
+   npm install angular-froala-wysiwyg --save
+   npm install angular-file-uploader --save
+
+
+
+
+
+
+ "angular-froala-wysiwyg" : "2.9.1",
+ "angular-file-uploader" : "4.1.4"
+
+
+
+
+
+    

@@ -1,0 +1,160 @@
+composer -v
+
+--------------------
+--Carpetas Symfony--
+--------------------
+bin:contiene los scripts de la consola para generar migraciones,entidades
+config:tiene la configuracion del framework
+public:punto de entrada de la aplicacion y contiene el archivo index
+src:contiene controladores, entidades, migraciones y repositorio
+var:almacena la cache y log del Proyecto
+vendor:composer se baja todas las librerias y el autoload de las clases
+
+----------------------
+--Crear Host Virtual--
+----------------------
+C:\xampp\apache\conf\extra
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/Full-Stack/Symfony/api-rest-symfony/public"
+    ServerName api-rest-symfony.com
+</VirtualHost>
+
+C:\Windows\System32\drivers\etc
+127.0.0.1 api-rest-symfony.com
+
+-----------------------
+--Crear Base de Datos--
+-----------------------
+CREATE DATABASE IF NOT EXISTS api_rest_symfony;
+USE api_rest_symfony;
+
+
+-----------------------------
+--Crear Proyecto en Symfony--
+-----------------------------
+cd /c/xampp/htdocs/Full-Stack/Symfony
+
+composer create-project symfony/skeleton api-rest-symfony "6.*"
+
+--------------------------------
+--Instalar Paquetes Necesarios--
+--------------------------------
+cd /c/xampp/htdocs/Full-Stack/Symfony/api-rest-symfony
+
+composer require symfony/apache-pack
+composer require symfony/http-foundation "6.*"
+composer require symfony/serializer "6.*"
+composer require symfony/validator "6.*"
+composer require symfony/asset "6.*"
+composer require symfony/property-access "6.*"
+composer require firebase/php-jwt "3.0.0"
+composer require knplabs/knp-paginator-bundle
+composer require doctrine/annotations
+composer require doctrine maker
+
+---------------------
+--Craer Controlador--
+---------------------
+php bin/console make:controller UserController
+php bin/console make:controller VideoController
+
+---------
+--Rutas--
+---------
+Ir al archivo routes.yaml que esta en la ruta:
+config/routes.yaml
+
+-------------------
+--Crear entidades--
+-------------------
+php bin/console doctrine:mapping:import App\\Entity annotation --path=src/Entity
+
+------------------------------------
+--Crear métodos getters y setters --
+------------------------------------
+php bin/console make:entity --regenerate App
+
+Cambiar el nombre de las clases y metodos en Singular
+
+En la clase Usuarios agrego la relacion de 1 a muchos, creo el constructor
+y el metodo que me recibe el array de la clase videos
+
+/**
+     * @ORM\OneToMany(targetEntity="App\Entity\video", mappedBy="user")
+     */
+    private $videos;
+
+    public function __construct()
+    {
+        $this->videos= new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Video[] 
+     */
+    public function getVideos(): Collection{
+        return $this->videos;
+    }
+
+    En la clase videos modifico el metodo de la relacion de muchos a 1
+
+        /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="videos")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+-----------------------
+--Ejemplo Controlador--
+-----------------------
+
+    public function index(): JsonResponse
+    {
+        $user_repo = $this->em->getRepository(User::class)->findAll();
+        $video_repo = $this->em->getRepository(Video::class)->findAll();
+        
+        foreach($user_repo as $user){
+            echo"<h1>{$user->getName()} {$user->getSurname()}</h1>";
+            
+            foreach($user->getVideos() as $video){
+                echo"<p>{$video->getTitle()} - {$video->getUser()->getEmail()}</p>";
+            }
+        }
+  
+        die();
+
+        return $this->json([
+            'message' => 'Welcome to your new controller,Hello world!',
+            'path' => 'src/Controller/UserController.php',
+        ]);
+    }
+
+-----------------------
+--Configurar Servicio--
+-----------------------
+
+Ir a la carpeta config y abrir el archivo services
+
+
+/*
+foreach($names as $name) {
+    $greeting = 'Hello ';
+    $greeting .= $name;
+    echo $greeting;
+}
+
+
+            $video = new Video();
+
+           $thearray = (array) $video;
+      
+
+            foreach($pagination as $p){
+                $thearray = $p->getId().'-'.$p->getTitle();
+            }*/
+
+            //die();

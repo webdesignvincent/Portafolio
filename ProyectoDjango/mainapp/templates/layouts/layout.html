@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %} {% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+</head>
+
+<body>
+    <!-- CABECER DE LA PAGINA -->
+    <header>
+        <div id="logotipo">
+            <!-- LOGO DJANGO -->
+            <img src="{% static 'images/logo.png' %}" />
+            <h1>Proyecto con Django</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url 'index' %}">Inicio</a>
+            </li>
+
+            {% if user.email %}
+
+                <li>
+                    <a href="{% url 'list_articles' %}">Categorias</a>
+
+                    <ul>
+                        {% for category in categories %}
+                            <li>
+                                <a href="{% url 'category' category.0 %}">{{ category.1 }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    
+                </li>
+
+                {% for page in pages %}
+                        <li>
+                            <a href="{% url 'page' page.2 %}">{{ page.1 }}</a>
+                        </li>
+                {% endfor %}
+
+                <li>
+                    <a href="{% url 'logout' %}">Cerrar sesion</a>
+                </li>
+
+            {% else %}
+
+                <li>
+                    <a href="{% url 'register' %}">Registro</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'login' %}">Login</a>
+                </li>
+
+            {% endif %}
+
+        </ul>
+    </nav>
+
+    <div class="barra">
+        <span class="esquina-izquierda"></span>
+        <span class="relleno-barra"></span>
+        <span class="esquina-derecha"></span>
+    </div>
+
+    <div id="content">
+        <div class="box">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <footer>
+        &copy; {% now "Y" %} <strong> Web Design Vincent </strong> | Development: <strong> Holger Montalvan Ronquillo </strong>
+    </footer>
+
+</body>
+
+</html>

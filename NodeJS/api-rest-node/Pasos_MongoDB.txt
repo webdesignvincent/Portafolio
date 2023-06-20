@@ -1,0 +1,36 @@
+Pasos MongoDB
+
+--Ver comandos de ayuda
+help
+
+--Ver base de datos creadas
+show dbs;
+
+--Ver logs de la base de datos
+show logs;
+
+--Seleccionar base de datos
+use curso_mean_social;
+
+--Ver coleccion de la base de datos
+show collections;
+
+--Crear Base de datos
+use prueba_mongo_db;
+
+--Guardar coleccion
+db.users.save({nombre: 'Holger', apellido: 'Montalvan', web: 'webdesignvincent.com.ec'});
+
+--Ver base de datos creadas
+show dbs;
+
+--Seleccionar base de datos
+use prueba_mongo_db;
+
+--Ver coleccion de la base de datos
+show collections;
+
+--Ver documento
+db.users.find();
+db.getCollection('users').find({})
+

@@ -1,0 +1,78 @@
+----------------
+--Pasos NodeJS--
+----------------
+
+npm init
+
+	api-rest-node
+	enter
+	API RESTFUL con NodeJS
+	enter
+	enter
+	enter
+	Web Design Vincent
+	MIT
+	yes
+
+--------------
+--Directorio--
+--------------
+
+	cd /c/xampp/htdocs/Full-Stack/NodeJS/api-rest-node
+
+------------------------------------------------
+--Agregar dependencias para el Proyecto NodeJS--
+------------------------------------------------
+    
+    1: "express" Framework que me permite trabajar con protocolo HTTP para crear el sistemas de rutas 
+
+	   npm install express --save
+
+	2: "body-parser" Libreria que sirve para convertir las peticiones que yo hago al backend en un objeto JSON usable para JAVASCRIPT 
+
+	    npm install body-parser --save
+
+	3: "bcrypt-nodejs" Libreria que me sirve para encriptar contraseñas 
+
+	    npm install bcrypt-nodejs --save
+
+	4: "multer" Libreria que me permite subir archivos a mi backend y poder trabajar con el protocolo file 
+
+        npm install multer --save
+
+	5: "mongoose" Es una libreria ORM para trabajar con MONGODB 
+
+	    npm install mongoose --save
+
+	6:  "jwt-simple" libreria que me sirve para gestionar tokens y hacer las autenticaciones 
+
+		 npm install jwt-simple --save
+
+	7: "moment" libreria que me sirve para trabajar con fechas 
+
+	     npm install moment --save
+
+	8:  "mongoose-paginate-v2" libreria que me sirve para trabajar con la paginacion de la informacion
+
+	     npm install mongoose-paginate-v2 --save
+
+	9:  "validator" libreria que me sirve para realizar validaciones de los datos que me llegan
+
+	     npm install validator --save
+
+	10: "nodemon" Cada vez que realizo un cambio se reinicia el servidor
+
+	     npm install nodemon --save-dev
+
+Agrego la siguiente linea en package.json:
+
+	 "start":"nodemon index.js"
+
+Para que al momento de compilar el programa llame a dicho archivo para arrancar
+
+cd /c/xampp/htdocs/Full-Stack/NodeJS/api-rest-node
+
+Ejecutar el programa
+	
+		npm start
+

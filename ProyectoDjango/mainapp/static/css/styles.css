@@ -1,0 +1,379 @@
+/* ESTILOS GENERALES */
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif,consolas;
+    text-decoration: none;
+}
+
+.clearfix{
+    clear: both;
+    float: none;
+}
+
+body{
+    background-color: #F2F2F2;
+}
+
+.box p, .box h2, .box h3, .box ul{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.box ul, .box li {
+    list-style: none;
+    text-decoration: none;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+/*  ESTILOS CABECERA */
+header{
+    width: 1212px;
+    height: 140px;
+    background-color: #23282B;
+    margin: 0px auto;
+}
+
+#logotipo{
+    width: 35%;
+    height: 130px;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+#logotipo img{
+    display: block;
+    width: 60px;
+    float: left;
+    margin-top: 20px;
+}
+
+#logotipo h1{
+    display: block;
+    float: left;
+    margin-top: 40px;
+    margin-left: 20px;
+    letter-spacing: 2px;
+    font-weight: lighter;
+    color: #2BA977;
+}
+
+/* ESTILOS BARRA DDE NAVEGACION*/
+nav{
+    width: 1250px;
+    height: 40px;
+    background-color: #1B1E1F;
+    border: 1px solid #333333;
+    margin: 0 auto;
+    box-shadow: 0px 22px 22px gray;
+    font-size: 15px;
+}
+
+nav > ul{
+    list-style: none;
+    text-decoration: none;
+}
+
+nav > ul > li{
+    line-height: 40px;
+    float: left;
+}
+
+nav > ul > li > a{
+    display: block;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #D1D4D6;
+}
+
+nav > ul > li > a:hover{
+    background: #2BA977;
+    box-shadow: 0px 0px 5px #333333 inset;
+    color: white;
+    transition: all 300ms;
+}
+
+nav > ul > li > ul{
+    display: none;
+    position: absolute;
+    color: white;
+    text-align: left;
+    width: 160px;
+    box-shadow: 0px 2px 2px gray;
+}
+
+nav > ul > li:hover > ul{
+      display: block;
+      color: white;
+      margin: 0px;
+     list-style: none;
+}
+
+nav > ul > li:hover > ul > li{
+    background: #F2F1F0;
+    border-bottom: 1px solid #D6D6D6;
+    padding: 8px;
+    line-height: 25px;
+    font-size: 13px;
+    transition: all 300ms;
+}
+
+nav > ul > li:hover > ul > li a{
+    color: #666;
+    transition: all 300ms;
+}
+
+nav > ul > li:hover > ul > li:hover{
+    background-color: #2BA977;
+}
+
+nav > ul > li:hover > ul > li:hover a{
+    display: block;
+    color: white;
+}
+
+.barra{
+    width: 1250px;
+    margin: 0 auto;
+}
+
+.esquina-izquierda{
+    display: block;
+    border-left: 20px solid transparent;
+    border-top: 10px solid #2B2F30;
+    float: left;
+}
+
+.esquina-derecha{
+    display: block;
+    border-right: 20px solid transparent;
+    border-top: 10px solid #2B2F30;
+    float: right;
+}
+
+.relleno-barra{
+    display: block;
+    width: 1210px;
+    height: 10px;
+    background: #2B2F30;
+    float: left;
+}
+
+/* ESTILOS CONTENIDO CENTRAL*/
+#content{
+    width: 1212px;
+    min-height: 930px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    margin-top: 40px;
+}
+
+.box{
+    background: white;
+    width: 95%;
+    min-height: 930px;
+    padding: 20px;
+    border: 1px solid #DDD;
+    border-radius: 2px;
+    margin: 0 auto;
+}
+
+.box .imagen{
+    width: 45%;
+    float: left;
+    margin-right: 40px;
+}
+
+.box .imagen img{
+    width: 100%;
+}
+
+.box a{
+    color: #444;
+    transition: all 300ms;
+}
+
+.box a:hover{
+    color: #2BA977;
+}
+
+.box form{
+    width: 40%;
+}
+
+.box form input,
+.box form label{
+    display: block;
+    padding: 5px;
+    padding-left: 0px;
+}
+
+.box form input[type="Text"],
+.box form input[type="email"],
+.box form input[type="password"],
+.box form textarea,
+.box form select{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.box form select{
+    width: 50px;
+    padding: 5px;
+}
+
+.box form input[type="submit"],
+.box form input[type="button"],
+.box form button{
+    padding: 10px;
+    margin-top: 5px;
+    background: #2BA977;
+    border: 1px solid #444;
+    color: white;
+    transition: 300ms all;
+}
+
+.box form input[type="submit"]:hover,
+.box form input[type="button"]:hover,
+.box form button:hover{
+    cursor: pointer;
+    background: #1F7E58;
+}
+
+.rojo{
+    color: crimson;
+    text-shadow: 0px 0px 2px black;
+}
+
+.message,
+.alert-success,
+.alert{
+    padding: 15px;
+    background: #1F7E58;
+    color: #F2F2F2;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.alert-warning{
+    background: #972824;
+}
+
+.title{
+    color: #444;
+    letter-spacing: 1px;
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.datetime{
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: gray;
+}
+
+.content{
+    line-height: 25px;
+}
+
+.article-item{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    clear: both;
+}
+
+.article-item .imagen{
+    width: 350px;
+    height: 200px;
+    float: left;
+    overflow: hidden;
+}
+
+.article-item .imagen img{
+    height: 200px;
+}
+
+.article-item .data{
+    float: left;
+    padding: 15px;
+    padding-top: 0px;
+}
+
+.article-item h2{
+    display: block;
+    font-size: 25px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.article-item span.date{
+    display: block;
+    font-size: 15px;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.article-item p{
+    display: block;
+    font-family: consolas;
+    font-size: 15px;
+    color: #1B1E1F;
+    margin-bottom: 20px;
+}
+
+.btn{
+    width: 100px;
+    padding: 10px;
+    background: rgb(207,48,48);
+    color: white;
+    border: 1px solid black;
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+}
+
+footer{
+    width: 1250px;
+    background-color: #1B1E1F;
+    border: 1px solid #333;
+    color: #D1D4D6;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 0px 0px 20px gray;
+}
+
+table, th, td {
+	border: 1px solid rgba(0,0,0,.2);
+}
+
+table {
+	border-collapse: collapse;
+	width: 1150px;
+	text-align: center;
+    font-size: 15px;
+}
+
+th, td {
+	padding:5px 10px;
+}
+
+th {
+	background: #23282B;
+	color: #D1D4D6;
+}
+
+th:hover {
+    background: #2BA977;
+    box-shadow: 0px 0px 5px #333333 inset;
+    color: white;
+    transition: all 300ms;
+}
+
+
